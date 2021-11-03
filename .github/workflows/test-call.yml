@@ -1,6 +1,7 @@
 name: TEST parameters
 on: workflow_dispatch
 jobs:
+  runs-on: ubuntu-latest
   call-reusable-workflow:
     uses: miguelas-itx/actions-playground/.github/workflows/reusable-workflow.yml@main
     with:
