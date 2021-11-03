@@ -1,0 +1,10 @@
+name: TEST parameters
+on: workflow_dispatch
+jobs:
+  call-reusable-workflow:
+    uses: miguelas-itx/actions-playground/.github/workflows/reusable-workflow.yml
+    with:
+      mobile_platform: android
+      tags: '@TAG'
+    secrets:
+      token: 'a secret'
