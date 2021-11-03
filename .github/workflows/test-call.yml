@@ -2,7 +2,7 @@ name: TEST parameters
 on: workflow_dispatch
 jobs:
   call-reusable-workflow:
-    uses: miguelas-itx/actions-playground/.github/workflows/reusable-workflow.yml
+    uses: miguelas-itx/actions-playground/.github/workflows/reusable-workflow.yml@main
     with:
       mobile_platform: android
       tags: '@TAG'
