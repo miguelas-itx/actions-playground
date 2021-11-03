@@ -2,7 +2,7 @@ name: TEST parameters
 on: workflow_dispatch
 jobs:
   call-reusable-workflow:
-    uses: miguelas-itx/actions-playground/.github/workflows/reusable-workflow.yml@main
+    uses: ${{ env.GITHUB_REPOSITORY }}/.github/workflows/reusable-workflow.yml@main
     with:
       mobile_platform: android
       tags: '@TAG'
@@ -13,5 +13,4 @@ jobs:
     steps:
       - name: Show env info
         run: |
-          echo ${GITHUB_ACTION_PATH}
           echo ${GITHUB_REPOSITORY}
