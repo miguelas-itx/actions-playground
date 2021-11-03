@@ -8,6 +8,7 @@ jobs:
       tags: '@TAG'
     secrets:
       token: 'a secret'
+  show-repo-info:
     run: |
       echo ${GITHUB_ACTION_PATH}
       echo ${GITHUB_REPOSITORY}
