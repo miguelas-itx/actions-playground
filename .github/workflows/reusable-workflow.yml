@@ -17,7 +17,6 @@ on:
         type: string
     secrets:
       token:
-        description: 'Don't tell anyone'
         required: true
 jobs:
   print-inputs:
@@ -29,4 +28,4 @@ jobs:
           echo The mobile_platform is ${{ inputs.mobile_platform }}
           echo The test_branch is ${{ inputs.test_branch }}
           echo The tags are ${{ inputs.tags }}
-          echo The token is ${{ insecretsputs.token }}
+          echo The token is ${{ secrets.token }}
