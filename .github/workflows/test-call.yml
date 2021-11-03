@@ -1,7 +1,6 @@
 name: TEST parameters
 on: workflow_dispatch
 jobs:
-  runs-on: ubuntu-latest
   call-reusable-workflow:
     uses: miguelas-itx/actions-playground/.github/workflows/reusable-workflow.yml@main
     with:
@@ -10,6 +9,7 @@ jobs:
     secrets:
       token: 'a secret'
   show-repo-info:
+    runs-on: ubuntu-latest
     steps:
       - name: Show env info
         run: |
