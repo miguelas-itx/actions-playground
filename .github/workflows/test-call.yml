@@ -9,6 +9,8 @@ jobs:
     secrets:
       token: 'a secret'
   show-repo-info:
-    run: |
-      echo ${GITHUB_ACTION_PATH}
-      echo ${GITHUB_REPOSITORY}
+    steps:
+      - name: Show env info
+        run: |
+          echo ${GITHUB_ACTION_PATH}
+          echo ${GITHUB_REPOSITORY}
