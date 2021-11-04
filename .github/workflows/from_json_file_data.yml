@@ -23,4 +23,4 @@ jobs:
     steps:
       - name: Print readed data
         run: |
-          jq . ${{needs.read-file.outputs.data}}
+          echo ${{needs.read-file.outputs.data}} > jq .
