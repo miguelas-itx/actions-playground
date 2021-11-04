@@ -12,7 +12,7 @@ jobs:
         run: |
           pwd
           ls -la
-          JSON=$(cat ./data/stores.json)
+          JSON=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/stores.json)
           echo "::set-output name=data::${JSON//'%'/'%25'}"
   print-data:
     runs-on: ubuntu-latest
