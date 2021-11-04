@@ -1,0 +1,20 @@
+name: Read data from JSON file
+on: workflow_dispatch
+jobs:
+  read-file:
+    runs-on: ubuntu-latest
+    outputs:
+      data: ${{ steps.read-json.outputs.data }}
+    steps:
+      - name: Read JSON file
+        id: read-json
+        run: |
+          JSON=$(cat ./data/stores.json)
+          echo "::set-output name=data::${JSON//'%'/'%25'}"
+  print-data:
+    runs-on: ubuntu-latest
+    needs: read-file
+    steps:
+      - name: Print readed data
+        run: |
+          echo ${{needs.read-file.outputs.data}}

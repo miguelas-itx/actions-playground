@@ -1,0 +1,36 @@
+{
+  "mobile_platform": "android",
+  "jira_project_name": "OYREGAND",
+  "app_file_extension": ".apk",
+  "bs_app_custom_id": "LatestAndroidApk",
+  "shops" : [
+    {
+      "store": "es",
+      "jiraTestPlan": {
+        "official" :"247",
+        "test": "136"
+      }
+    },
+    {
+      "store": "fr",
+      "jiraTestPlan": {
+        "official" :"248",
+        "test": "137"
+      }
+    },
+    {
+      "store": "de",
+      "jiraTestPlan": {
+        "official" :"249",
+        "test": "146"
+      }
+    },
+    {
+      "store": "it",
+      "jiraTestPlan": {
+        "official" :"250",
+        "test": "147"
+      }
+    }
+  ]
+}
