@@ -23,4 +23,5 @@ jobs:
     steps:
       - name: Print readed data
         run: |
-          echo ${{needs.read-file.outputs.data}} > jq .
+          export MATRIX=${{needs.read-file.outputs.data}}
+          jq -n env.MATRIX
