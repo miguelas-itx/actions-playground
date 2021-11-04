@@ -11,7 +11,12 @@ jobs:
         id: read-json
         run: |
           JSON=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/stores.json)
-          echo "::set-output name=data::${JSON//'%'/'%25'}"
+          # the following lines are only required for multi line json
+          JSON="${JSON//'%'/'%25'}"
+          JSON="${JSON//$'\n'/'%0A'}"
+          JSON="${JSON//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=data::${JSON}"
   print-data:
     runs-on: ubuntu-latest
     needs: read-file
