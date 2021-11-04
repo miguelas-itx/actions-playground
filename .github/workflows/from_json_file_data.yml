@@ -10,8 +10,6 @@ jobs:
       - name: Read JSON file
         id: read-json
         run: |
-          pwd
-          ls -la
           JSON=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/stores.json)
           echo "::set-output name=data::${JSON//'%'/'%25'}"
   print-data:
