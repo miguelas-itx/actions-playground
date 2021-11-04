@@ -1,3 +1,4 @@
+name: Reusable workflow
 on:
   workflow_call:
     inputs:
@@ -29,3 +30,4 @@ jobs:
           echo The test_branch is ${{ inputs.test_branch }}
           echo The tags are ${{ inputs.tags }}
           echo The token is ${{ secrets.token }}
+          echo The Action Path is ${GITHUB_ACTION_PATH}
