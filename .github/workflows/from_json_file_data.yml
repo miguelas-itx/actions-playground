@@ -17,6 +17,19 @@ jobs:
           JSON="${JSON//$'\r'/'%0D'}"
           # end of optional handling for multi line json
           echo "::set-output name=data::${JSON}"
+  check-json:
+    runs-on: ubuntu-latest
+    needs: read-file
+    steps:
+      - name: Install json2yaml
+        run: |
+          sudo npm install -g json2yaml
+      - name: Check readed json
+        json='${{ needs.read-file.outputs.data }}'
+        echo "Readed JSON"
+        echo $json | jq .
+        echo "Parsed yaml"
+        echo $json | json2yaml
   print-data:
     runs-on: ubuntu-latest
     needs: read-file
