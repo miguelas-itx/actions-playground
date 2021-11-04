@@ -16,6 +16,10 @@ on:
         default: ''
         required: false
         type: string
+      shop_matrix:
+        description: 'The matrix of shops to run tests on'
+        required: true
+        type: string
     secrets:
       token:
         required: true
@@ -30,4 +34,4 @@ jobs:
           echo The test_branch is ${{ inputs.test_branch }}
           echo The tags are ${{ inputs.tags }}
           echo The token is ${{ secrets.token }}
-          echo The Action Path is ${GITHUB_WORKSPACE}
+          
