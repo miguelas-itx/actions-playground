@@ -6,6 +6,7 @@ jobs:
     outputs:
       data: ${{ steps.read-json.outputs.data }}
     steps:
+      - uses: actions/checkout@v2
       - name: Read JSON file
         id: read-json
         run: |
