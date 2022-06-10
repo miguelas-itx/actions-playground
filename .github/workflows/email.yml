@@ -20,7 +20,7 @@ jobs:
       - name: Email report artifact
         uses: actions/upload-artifact@v3
         with:
-          name: email-report-${{ matrix.shop }}
+          name: html-report-${{ matrix.shop }}
           path: ./reports/html/
   email-send:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
       - name: Display structure of downloaded artifacts
         run: ls -R
       - name: Build final email report
-        run: zip reports.zip -r email-report-*
+        run: zip reports.zip -r html-report-*
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
@@ -42,5 +42,5 @@ jobs:
           subject: Execution report summary
           to: miguelangel.santamaria@izertis.com
           from: Github actions
-          body: Execution summary of ${{github.repository}}
+          body: Execution reports of ${{github.repository}}
           attachments: reports.zip
