@@ -35,7 +35,8 @@ jobs:
       - name: Recover email list
         id: emails
         run: |
-          RECIPIENTS=$(cat ${GITHUB_WORKSPACE}/.github/data/report_emails.txt)
+          RECIPIENTS=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/report_emails.txt)
+          echo "::notice title=Email recipients for html reports::${RECIPIENTS}"
           echo "::set-output name=recipients::${RECIPIENTS}"
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
