@@ -18,7 +18,7 @@ jobs:
       - name: Recover email body
         id: body
         run: |
-          BODY=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/email_body.html)
+          BODY=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/email-body.html)
           echo "::set-output name=body::${BODY}"
   artifact-generation:
     runs-on: ubuntu-latest
