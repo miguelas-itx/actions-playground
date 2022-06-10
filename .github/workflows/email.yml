@@ -2,6 +2,7 @@ name: Email sending
 on: workflow_dispatch
 jobs:
   artifact-generation:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         shop: [es, de ,be]
@@ -22,6 +23,7 @@ jobs:
           name: email-report-${{ matrix.shop }}.zip
           path: ./reports/html/
   email-send:
+    runs-on: ubuntu-latest
     needs: artifact-generation
     steps:
       - name: Recover artifacts
