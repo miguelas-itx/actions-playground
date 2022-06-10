@@ -18,7 +18,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: email-html-body
-          path: ${GITHUB_WORKSPACE}/.github/workflows/data/email-body.html
+          path: ./.github/workflows/data/email-body.html
   artifact-generation:
     runs-on: ubuntu-latest
     needs: create-testbed
@@ -61,5 +61,5 @@ jobs:
           subject: Execution report summary
           to: ${{ needs.create-testbed.outputs.report-recipients }}
           from: Github actions
-          body_body: file://${GITHUB_WORKSPACE}/email-html-body/email-body.html
+          html_body: file://${GITHUB_WORKSPACE}/email-html-body/email-body.html
           attachments: reports.zip
