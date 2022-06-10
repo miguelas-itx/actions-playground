@@ -28,6 +28,15 @@ jobs:
     steps:
       - name: Recover artifacts
         uses: actions/download-artifact@v3
-      - name: Display structure of downloaded files
-        run: |
-          ls -R
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Execution report summary
+          to: miguelangel.santamaria@izertis.com
+          from: Github actions
+          body: Execution summary of ${{github.repository}}
+          attachments: email-report-*.zip
