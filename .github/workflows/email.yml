@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       report-recipients: ${{ steps.emails.outputs.recipients }}
+      report-email-body: ${{ steps.body.outputs.body }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -14,6 +15,11 @@ jobs:
           RECIPIENTS=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/report_emails.txt)
           echo "::notice title=Email recipients for html reports::${RECIPIENTS}"
           echo "::set-output name=recipients::${RECIPIENTS}"
+      - name: Recover email body
+        id: body
+        run: |
+          BODY=$(cat ${GITHUB_WORKSPACE}/.github/workflows/data/email_body.html)
+          echo "::set-output name=body::${BODY}"
   artifact-generation:
     runs-on: ubuntu-latest
     needs: create-testbed
@@ -56,5 +62,5 @@ jobs:
           subject: Execution report summary
           to: ${{ needs.create-testbed.outputs.report-recipients }}
           from: Github actions
-          html_body: file://${GITHUB_WORKSPACE}/.github/workflows/data/email-body.html
+          html_body: ${{ needs.create-testbed.outputs.report-email-body }}
           attachments: reports.zip
