@@ -31,7 +31,7 @@ jobs:
       - name: Display structure of downloaded artifacts
         run: ls -R
       - name: Build final email report
-        run: zip reports.zip email-report-*/**/*
+        run: zip reports.zip -r email-report-*
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
