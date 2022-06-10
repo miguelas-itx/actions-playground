@@ -1,0 +1,31 @@
+name: Email sending
+on: workflow_dispatch
+jobs:
+  artifact-generation:
+    strategy:
+      matrix:
+        shop: [es, de ,be]
+    steps:
+      - name: Generate dummy reports
+        run: |
+          mkdir -p ./reports/html
+          echo "<p>hola</p>" > ./reports/html/index.html
+          echo "{}" > ./reports/report.json
+      - name: Full report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: full-report-${{ matrix.shop }}.zip
+          path: ./reports/
+      - name: Email report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: email-report-${{ matrix.shop }}.zip
+          path: ./reports/html/
+  email-send:
+    needs: artifact-generation
+    steps:
+      - name: Recover artifacts
+        uses: actions/download-artifact@v3
+      - name: Display structure of downloaded files
+        run: |
+          ls -R
