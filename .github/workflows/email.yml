@@ -30,6 +30,8 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Display structure of downloaded artifacts
         run: ls -R
+      - name: Build final email report
+        run: zip reports.zip email-report-*/**/*
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
@@ -41,4 +43,4 @@ jobs:
           to: miguelangel.santamaria@izertis.com
           from: Github actions
           body: Execution summary of ${{github.repository}}
-          attachments: ./email-report-es/index.html
+          attachments: reports.zip
