@@ -61,5 +61,5 @@ jobs:
           subject: Execution report summary
           to: ${{ needs.create-testbed.outputs.report-recipients }}
           from: Github actions
-          body_body: file://${{GITHUB_WORKSPACE}}/email-html-body/email-body.html
+          body_body: file://${GITHUB_WORKSPACE}/email-html-body/email-body.html
           attachments: reports.zip
