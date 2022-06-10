@@ -39,4 +39,4 @@ jobs:
           to: miguelangel.santamaria@izertis.com
           from: Github actions
           body: Execution summary of ${{github.repository}}
-          attachments: ./email-report-es.zip
+          attachments: ./email-report-es.zip/index.html
