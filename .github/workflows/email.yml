@@ -32,6 +32,11 @@ jobs:
         run: ls -R
       - name: Build final email report
         run: zip reports.zip -r html-report-*
+      - name: Recover email list
+        id: emails
+        run: |
+          RECIPIENTS=$(cat ${GITHUB_WORKSPACE}/.github/data/report_emails.txt)
+          echo "::set-output name=recipients::${RECIPIENTS}"
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
@@ -40,7 +45,7 @@ jobs:
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
           subject: Execution report summary
-          to: miguelangel.santamaria@izertis.com
+          to: ${{ steps.emails.outputs.recipients }}
           from: Github actions
           body: Execution reports of ${{github.repository}}
           attachments: reports.zip
