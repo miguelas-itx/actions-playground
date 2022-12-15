@@ -27,9 +27,6 @@ on:
         required: false
         default: "%Y%m%d"
         type: string
-    secrets:
-      gh_token_reader:
-        required: true
 
 env:
   test_branch: ${{ inputs.test_branch }}
@@ -47,7 +44,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ env.test_branch }}
-          token: ${{ secrets.gh_token_reader }}
       - name: Create test matrix
         id: matrix
         run: |
@@ -74,7 +70,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ env.test_branch }}
-          token: ${{ secrets.gh_token_reader }}
       - name: Tags expression build
         run: |
           [[ ! -z "${{ env.tags }}" && ! -z "${{ matrix.tags }}" ]] && SEPARATOR=" and " || SEPARATOR=""

@@ -33,5 +33,3 @@ jobs:
       tags: ${{ github.event.inputs.tags || '' }}
       report: ${{ inputs.report }}
       date_expression: "%Y%m%d-TEST"
-    secrets:
-      gh_token_reader: ${{ secrets.GH_TOKEN_READER }}
