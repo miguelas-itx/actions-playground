@@ -87,3 +87,4 @@ jobs:
           echo ${{ matrix.testEnvironment }}
           echo ${{ matrix.store }}
           echo ${{ env.tags }}
+          echo ${{ matrix.jiraTestPlan }}

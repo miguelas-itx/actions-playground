@@ -3,21 +3,21 @@
     "es",
     "de"
   ],
-  "testEnvironment": [
-    "PRO"
-  ],
   "vertical": [
     "catalog",
     "checkout",
     "customer"
   ],
-  "platform": [
-    "chrome"
-  ],
   "include": [
     {
+      "platform": "chrome",
       "type": "local",
-      "device": "gh"
+      "device": "gh",
+      "testEnvironment": "PRO"
+    },
+    {
+      "shop": "de",
+      "tags": "not @giftcard-physical"
     },
     {
       "store": "es",
@@ -37,20 +37,17 @@
     {
       "store": "de",
       "vertical": "catalog",
-      "jiraTestPlan": 90,
-      "tags": "not @giftcard-physical"
+      "jiraTestPlan": 90
     },
     {
       "store": "de",
       "vertical": "checkout",
-      "jiraTestPlan": 91,
-      "tags": "not @giftcard-physical"
+      "jiraTestPlan": 91
     },
     {
       "store": "de",
       "vertical": "customer",
-      "jiraTestPlan": 92,
-      "tags": "not @giftcard-physical"
+      "jiraTestPlan": 92
     }
   ]
 }
