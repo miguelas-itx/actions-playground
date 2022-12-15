@@ -30,12 +30,6 @@ on:
     secrets:
       gh_token_reader:
         required: true
-      srvc_e2etest_username:
-        required: true
-      srvc_e2etest_password:
-        required: true
-      bot_header_token:
-        required: true
 
 env:
   test_branch: ${{ inputs.test_branch }}
