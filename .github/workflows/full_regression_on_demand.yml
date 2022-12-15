@@ -1,0 +1,37 @@
+name: Full Parallel Regression (on demand)
+on:
+  workflow_dispatch:
+    inputs:
+      test_branch:
+        description: "Insert the name of the branch"
+        required: true
+        default: "main"
+      tags:
+        description: "Cucumber tags"
+        required: false
+        default: ""
+      config_file:
+        description: "The config file to use"
+        required: true
+        default: "test"
+        type: choice
+        options:
+        - pro_chrome
+      report:
+        description: "Enable report to Xray"
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  call-base-workflow:
+    name: Common steps
+    uses: ./.github/workflows/base_workflow.yml
+    with:
+      test_branch: ${{ github.event.inputs.test_branch || 'main' }}
+      matrix_config_file: ${{ github.event.inputs.config_file || 'test' }}
+      tags: ${{ github.event.inputs.tags || '' }}
+      report: ${{ inputs.report }}
+      date_expression: "%Y%m%d-TEST"
+    secrets:
+      gh_token_reader: ${{ secrets.GH_TOKEN_READER }}

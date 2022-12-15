@@ -1,0 +1,56 @@
+{
+  "store": [
+    "es",
+    "de"
+  ],
+  "testEnvironment": [
+    "PRO"
+  ],
+  "vertical": [
+    "catalog",
+    "checkout",
+    "customer"
+  ],
+  "platform": [
+    "chrome"
+  ],
+  "include": [
+    {
+      "type": "local",
+      "device": "gh"
+    },
+    {
+      "store": "es",
+      "vertical": "catalog",
+      "jiraTestPlan": 43
+    },
+    {
+      "store": "es",
+      "vertical": "checkout",
+      "jiraTestPlan": 48
+    },
+    {
+      "store": "es",
+      "vertical": "customer",
+      "jiraTestPlan": 44
+    },
+    {
+      "store": "de",
+      "vertical": "catalog",
+      "jiraTestPlan": 90,
+      "tags": "not @giftcard-physical"
+    },
+    {
+      "store": "de",
+      "vertical": "checkout",
+      "jiraTestPlan": 91,
+      "tags": "not @giftcard-physical"
+    },
+    {
+      "store": "de",
+      "vertical": "customer",
+      "jiraTestPlan": 92,
+      "tags": "not @giftcard-physical"
+    }
+  ]
+}

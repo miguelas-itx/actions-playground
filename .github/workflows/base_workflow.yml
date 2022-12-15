@@ -1,0 +1,100 @@
+name: Base regression workflow
+
+on:
+  workflow_call:
+    inputs:
+      test_branch:
+        description: "Insert the name of the branch"
+        required: true
+        default: "main"
+        type: string
+      matrix_config_file:
+        description: "The name of the matrix configuration file"
+        required: true
+        default: test
+        type: string
+      tags:
+        description: "Cucumber tags"
+        required: true
+        type: string
+      report:
+        description: "Flag to disable the reporting to Xray"
+        required: false
+        default: true
+        type: boolean
+      date_expression:
+        description: "Date expression to add to Jira test execution label"
+        required: false
+        default: "%Y%m%d"
+        type: string
+    secrets:
+      gh_token_reader:
+        required: true
+      srvc_e2etest_username:
+        required: true
+      srvc_e2etest_password:
+        required: true
+      bot_header_token:
+        required: true
+
+env:
+  test_branch: ${{ inputs.test_branch }}
+
+jobs:
+  create-testbed:
+    name: Create test execution configuration
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      date: ${{ steps.date.outputs.date }}
+      date_short: ${{ steps.date.outputs.date_short }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.test_branch }}
+          token: ${{ secrets.gh_token_reader }}
+      - name: Create test matrix
+        id: matrix
+        run: |
+          MATRIX=$(jq -c . ${GITHUB_WORKSPACE}/.github/data/${{ inputs.matrix_config_file }}.json)
+          echo "Readed matrix"
+          echo "${MATRIX}"
+          echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
+      - name: Get current date
+        id: date
+        run: |
+          echo "date=$(date +'%Y-%m-%dT%H.%M.%S')" >> $GITHUB_OUTPUT
+          echo "date_short=$(date +'${{ inputs.date_expression }}')" >> $GITHUB_OUTPUT
+  execute-tests:
+    name: Execute tests
+    needs: create-testbed
+    runs-on: ubuntu-latest
+    env:
+      tags: ${{ inputs.tags }}
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.create-testbed.outputs.matrix)}}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.test_branch }}
+          token: ${{ secrets.gh_token_reader }}
+      - name: Tags expression build
+        run: |
+          [[ ! -z "${{ env.tags }}" && ! -z "${{ matrix.tags }}" ]] && SEPARATOR=" and " || SEPARATOR=""
+          TAG_EXPRESSION="${{ env.tags }}${SEPARATOR}${{ matrix.tags }}"
+          [[ ! -z "${TAG_EXPRESSION}" ]] && SEPARATOR=" and " || SEPARATOR=""
+          TAG_EXPRESSION="@${{ matrix.vertical }}${SEPARATOR}${TAG_EXPRESSION}"
+          echo "::notice title=Tags::The tags expression for '${{ matrix.store }}' is '${TAG_EXPRESSION}'"
+          echo "tags=${TAG_EXPRESSION}" >> $GITHUB_ENV
+      - name: Tests execution
+        continue-on-error: true
+        run: |
+          echo ${{ matrix.type }}
+          echo ${{ matrix.platform }}
+          echo ${{ matrix.device }}
+          echo ${{ matrix.testEnvironment }}
+          echo ${{ matrix.store }}
+          echo ${{ env.tags }}
